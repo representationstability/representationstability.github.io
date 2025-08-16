@@ -43,7 +43,42 @@
       margin: 1rem 0 0.5rem;
       font-weight: 500;
     }
-    select, input {
+    /* Dropdown wrapper */
+    .select-wrapper {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      max-width: 300px;
+    }
+    /* Clean select style */
+    .select-wrapper select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+
+      background-color: #f0f0f0;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      padding: 0.5rem 2rem 0.5rem 0.75rem;
+      font-size: 1rem;
+      color: #333;
+      cursor: pointer;
+      outline: none;
+      box-shadow: none;
+      width: 100%;
+    }
+    /* Custom arrow */
+    .select-wrapper::after {
+      content: "▾";
+      position: absolute;
+      top: 50%;
+      right: 0.75rem;
+      transform: translateY(-50%);
+      color: #555;
+      pointer-events: none;
+    }
+
+    input {
       padding: 0.5rem;
       font-size: 1rem;
       border: 1px solid #aaa;
@@ -88,20 +123,24 @@
       <h3>Choose Options</h3>
 
       <label for="curveSelect">Select an algebraic curve:</label>
-      <select id="curveSelect">
-        <option value="">-- Select Curve --</option>
-        <option value="A1">Affine line \( \mathbb{A}^1 \)</option>
-        <option value="P1">Projective line \( \mathbb{P}^1 \)</option>
-        <option value="E">Elliptic curve \( E \)</option>
-      </select>
+      <div class="select-wrapper">
+        <select id="curveSelect">
+          <option value="">-- Select Curve --</option>
+          <option value="A1">Affine line \( \mathbb{A}^1 \)</option>
+          <option value="P1">Projective line \( \mathbb{P}^1 \)</option>
+          <option value="E">Elliptic curve \( E \)</option>
+        </select>
+      </div>
 
       <label for="outputSelect">Select an output type:</label>
-      <select id="outputSelect">
-        <option value="">-- Select Output --</option>
-        <option value="rational">Rational function</option>
-        <option value="laurent">Laurent series</option>
-        <option value="multiplicities">Multiplicities</option>
-      </select>
+      <div class="select-wrapper">
+        <select id="outputSelect">
+          <option value="">-- Select Output --</option>
+          <option value="rational">Rational function</option>
+          <option value="laurent">Laurent series</option>
+          <option value="multiplicities">Multiplicities</option>
+        </select>
+      </div>
 
       <label for="partitionInput">Enter a partition of \( n \leq 5 \) (e.g. "3,1,1"):</label>
       <input type="text" id="partitionInput" placeholder="e.g. 3,1,1">
@@ -121,12 +160,10 @@
     const errorMsg = document.getElementById("errorMsg");
 
     // Dummy placeholder "database"
-    // Later this could be loaded from a separate file
     const expressions = {
       "A1_rational": "\\( f(x) = x \\)",
       "P1_rational": "\\( f(x) = \\frac{1}{x} \\)",
       "E_rational": "\\( f(x,y) = y^2 - x^3 - ax - b \\)"
-      // (etc. for laurent, multiplicities, partitions...)
     };
 
     // Check if partition is valid
@@ -159,12 +196,10 @@
         return;
       }
 
-      // Construct key to look up expression
       const key = curve + "_" + output;
-
       if (expressions[key]) {
         equationBox.innerHTML = expressions[key];
-        MathJax.typesetPromise([equationBox]); // render LaTeX
+        MathJax.typesetPromise([equationBox]);
       } else {
         equationBox.textContent = "No expression found for this combination (placeholder).";
       }
