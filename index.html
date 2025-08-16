@@ -69,10 +69,19 @@
     }
     button:hover { background: #222; }
     .equation {
-      margin-top: 1.5rem; padding: 1rem;
-      background: var(--equation-bg); border-left: 3px solid var(--border-color);
-      min-height: 2rem; transition: background-color 0.3s, border-color 0.3s;
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: var(--equation-bg);
+      border-left: 3px solid var(--border-color);
+      min-height: 2rem;
+
+      white-space: nowrap;    /* keep all LaTeX on one line */
+      overflow-x: auto;       /* add horizontal scroll if content is too wide */
+      overflow-y: hidden;
+      max-width: 100%;        /* stay within the container width */
+      box-sizing: border-box;
     }
+
     .error { color: var(--error-color); font-weight: 600; margin-top: 1rem; }
   </style>
 </head>
