@@ -118,11 +118,11 @@
       <label for="partitionInput">Enter a partition of \( n \leq 5 \) (e.g. "3,1,1"):</label>
       <input type="text" id="partitionInput" placeholder="e.g. 3,1,1">
 
-      <button id="submitBtn">Show Expression</button>
+      <button id="submitBtn">Show Data</button>
 
       <div id="errorMsg" class="error"></div>
       <div id="equationBox" class="equation">
-        Your expression will appear here.
+        The relevant data will appear here.
       </div>
     </section>
   </div>
@@ -164,7 +164,7 @@
       const partition = document.getElementById("partitionInput").value.trim();
 
       if (!curve || !output) {
-        errorMsg.textContent = "Please select both a curve and an output type.";
+        errorMsg.textContent = "Please select both a variety and an output type.";
         equationBox.textContent = "";
         return;
       }
