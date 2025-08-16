@@ -95,16 +95,16 @@
     <section>
       <h3>Choose Options</h3>
 
-      <label for="curveSelect">Select an algebraic variety:</label>
-      <div class="select-wrapper">
-        <select id="curveSelect">
-          <option value="">-- Select Variety --</option>
-          <option value="A1">Affine line \( \mathbb{A}^1 \)</option>
-          <option value="P1">Projective line \( \mathbb{P}^1 \)</option>
-          <option value="E">Elliptic curve \( E \)</option>
-        </select>
-      </div>
+      <!-- Curve dropdown -->
+      <label for="curveSelect">Select an algebraic curve:</label>
+      <select id="curveSelect" class="choices-select">
+        <option value="">-- Select Curve --</option>
+        <option value="A1"><span>\(\mathbb{A}^1\)</span> Affine line</option>
+        <option value="P1"><span>\(\mathbb{P}^1\)</span> Projective line</option>
+        <option value="E">Elliptic curve \(E\)</option>
+      </select>
 
+      <!-- Output type dropdown -->
       <label for="outputSelect">Select an output type:</label>
       <div class="select-wrapper">
         <select id="outputSelect">
@@ -118,11 +118,11 @@
       <label for="partitionInput">Enter a partition of \( n \leq 5 \) (e.g. "3,1,1"):</label>
       <input type="text" id="partitionInput" placeholder="e.g. 3,1,1">
 
-      <button id="submitBtn">Show Data</button>
+      <button id="submitBtn">Show Expression</button>
 
       <div id="errorMsg" class="error"></div>
       <div id="equationBox" class="equation">
-        The relevant data will appear here.
+        Your expression will appear here.
       </div>
     </section>
   </div>
