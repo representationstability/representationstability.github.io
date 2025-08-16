@@ -1,8 +1,198 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Clean, modern GitHub Pages template — fast, responsive, and easy to customize." />
+  <meta name="author" content="Your Name" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Your Site Title" />
+  <meta property="og:description" content="A clean, modern GitHub Pages template." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://your-username.github.io/" />
+  <meta property="og:image" content="/assets/og-image.png" />
+
+  <title>Your Site Title</title>
+
+  <!-- Google Font: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Minimal, self-contained styles (easy to override) -->
+  <style>
+    :root{
+      --bg: #0f1724; /* dark */
+      --card: #0b1220;
+      --muted: #9aa4b2;
+      --text: #e6eef6;
+      --accent: #6ee7b7;
+      --glass: rgba(255,255,255,0.04);
+      --radius: 12px;
+      --maxw: 1100px;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+    [data-theme="light"]{ --bg:#f7fafc; --card:#ffffff; --muted:#586069; --text:#0f1724; --accent:#0ea5a4; --glass: rgba(15,23,36,0.04); }
+
+    html,body{height:100%;}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#031026);color:var(--text);display:flex;flex-direction:column;align-items:center;}
+
+    .site{width:100%;max-width:var(--maxw);padding:40px 24px;box-sizing:border-box}
+
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:36px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7dd3fc);display:flex;align-items:center;justify-content:center;color:#05202a;font-weight:700;font-size:18px}
+    h1.site-title{font-weight:700;margin:0;font-size:18px}
+    nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-weight:600}
+    .btn{background:var(--glass);border-radius:10px;padding:8px 12px;cursor:pointer;border:1px solid rgba(255,255,255,0.04)}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 380px;gap:32px;align-items:start;margin-bottom:48px}
+    .hero-card{background:var(--card);border-radius:var(--radius);padding:28px;box-shadow:0 6px 18px rgba(2,6,23,0.6);}
+    h2{margin:0 0 12px 0;font-size:28px}
+    p.lead{margin:0;color:var(--muted);line-height:1.6}
+
+    /* Feature list */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:20px}
+    .feature{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:16px;border-radius:10px}
+    .feature h3{margin:0 0 8px 0;font-size:16px}
+    .feature p{margin:0;color:var(--muted);font-size:14px}
+
+    /* Footer */
+    footer{width:100%;margin-top:48px;padding:20px 0;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+
+    /* Responsive */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr;}
+      nav a{display:none}
+    }
+
+    /* Small utility */
+    .muted{color:var(--muted)}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);font-weight:600}
+
+    /* Accessibility helpers */
+    a:focus, button:focus{outline:2px solid var(--accent);outline-offset:2px}
+  </style>
 </head>
 <body>
-  Hello world
+  <div class="site" id="site">
+    <header>
+      <div class="brand">
+        <div class="logo">YS</div>
+        <div>
+          <h1 class="site-title">Your Site Title</h1>
+          <div class="muted" style="font-size:13px">Short tagline or description</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:center">
+        <nav aria-label="Primary navigation">
+          <a href="#about">About</a>
+          <a href="#features">Features</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <button class="btn" id="themeToggle" aria-label="Toggle theme">Toggle</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-card">
+          <h2>A clean, modern GitHub Pages starter</h2>
+          <p class="lead">Lightweight, responsive template perfect for docs, portfolios, or small projects. Drop in your content, tweak colors, and push to GitHub — it works with plain GitHub Pages (no build step required).</p>
+
+          <div class="grid" style="margin-top:18px">
+            <div class="feature">
+              <h3>Fast and minimal</h3>
+              <p>Single-file HTML with small CSS — fast to load and easy to host on GitHub Pages.</p>
+            </div>
+            <div class="feature">
+              <h3>Responsive</h3>
+              <p>Mobile-first layout that adapts gracefully to narrow screens.</p>
+            </div>
+            <div class="feature">
+              <h3>Accessible</h3>
+              <p>Keyboard focus styles and semantic structure to improve accessibility.</p>
+            </div>
+          </div>
+
+          <div style="margin-top:20px;display:flex;gap:10px;align-items:center">
+            <a class="pill" href="#contact">Get in touch</a>
+            <a class="pill" href="#" style="background:linear-gradient(90deg,var(--accent),#7dd3fc);color:#042024">Deploy</a>
+          </div>
+        </div>
+
+        <aside style="align-self:start">
+          <div class="hero-card" style="padding:20px">
+            <h3 style="margin-top:0">Quick start</h3>
+            <ol style="margin:0;color:var(--muted);line-height:1.6">
+              <li>Customize the title &amp; meta tags.</li>
+              <li>Replace content in the sections below.</li>
+              <li>Push to a repo named <code>your-username.github.io</code> or enable Pages in repo settings.</li>
+            </ol>
+          </div>
+        </aside>
+      </section>
+
+      <section id="about" class="hero-card" style="margin-bottom:18px">
+        <h2>About</h2>
+        <p class="muted">Write a concise paragraph about the project or yourself. Keep it scannable — use short paragraphs and bullet points when helpful.</p>
+      </section>
+
+      <section id="features" class="hero-card">
+        <h2>Features</h2>
+        <div class="grid" style="margin-top:14px">
+          <div class="feature">
+            <h3>SEO-friendly</h3>
+            <p>Essential meta tags and semantic HTML make this a good starting point for search engines.</p>
+          </div>
+          <div class="feature">
+            <h3>Dark &amp; light themes</h3>
+            <p>Theme toggle (stored in localStorage) — modify colors in <code>:root</code> or set up CSS variables to match your brand.</p>
+          </div>
+          <div class="feature">
+            <h3>Easy to extend</h3>
+            <p>Drop in a CSS framework, a small script, or a static site generator if you need a build step later.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="hero-card" style="margin-top:18px">
+        <h2>Contact</h2>
+        <p class="muted">Add your contact info, social links, or a simple form. For forms on GitHub Pages consider using a form service (Formspree, Netlify Forms) or link to an email address.</p>
+        <div style="margin-top:12px">
+          <a href="mailto:hello@yourdomain.com" class="pill">Email me</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="muted">© <span id="year"></span> Your Name — Built with ♥ and GitHub Pages</div>
+      <div class="muted">Theme: <span id="currentTheme">dark</span></div>
+    </footer>
+  </div>
+
+  <script>
+    // small helpers: year and theme toggle
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const toggle = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    const themeLabel = document.getElementById('currentTheme');
+
+    function setTheme(t){
+      if(t === 'light') root.setAttribute('data-theme','light');
+      else root.removeAttribute('data-theme');
+      themeLabel.textContent = t;
+    }
+
+    const saved = localStorage.getItem('site-theme') || 'dark';
+    setTheme(saved);
+
+    toggle.addEventListener('click', ()=>{
+      const now = (root.getAttribute('data-theme') === 'light') ? 'dark' : 'light';
+      localStorage.setItem('site-theme', now);
+      setTheme(now);
+    });
+  </script>
 </body>
 </html>
