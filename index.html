@@ -19,7 +19,6 @@
       --equation-bg: #eee;
       --error-color: #b00020;
     }
-
     body.dark {
       --bg-color: #1e1e1e;
       --text-color: #e5e5e5;
@@ -28,7 +27,6 @@
       --equation-bg: #2a2a2a;
       --error-color: #ff6b6b;
     }
-
     body {
       background-color: var(--bg-color);
       color: var(--text-color);
@@ -38,131 +36,44 @@
       line-height: 1.6;
       transition: background-color 0.3s, color 0.3s;
     }
-
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 2rem;
-      position: relative;
-    }
-
-    header h1 {
-      font-size: 2.2rem;
-      margin: 0.5rem 0;
-    }
-
-    /* Dark mode toggle button */
+    .container { max-width: 800px; margin: 0 auto; padding: 2rem; }
+    header { text-align: center; margin-bottom: 2rem; position: relative; }
+    header h1 { font-size: 2.2rem; margin: 0.5rem 0; }
     #themeToggle {
-      position: absolute;
-      top: 0;
-      right: 0;
-      margin: 1rem;
-      padding: 0.4rem 0.8rem;
-      border: none;
-      border-radius: 6px;
-      background: var(--input-bg);
-      color: var(--text-color);
-      cursor: pointer;
-      font-size: 0.9rem;
+      position: absolute; top: 0; right: 0; margin: 1rem;
+      padding: 0.4rem 0.8rem; border: none; border-radius: 6px;
+      background: var(--input-bg); color: var(--text-color);
+      cursor: pointer; font-size: 0.9rem;
     }
-    #themeToggle:hover {
-      background: var(--border-color);
-    }
-
-    h3 {
-      margin-top: 2rem;
-      font-size: 1.4rem;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 0.3rem;
-    }
-
-    label {
-      display: block;
-      margin: 1rem 0 0.5rem;
-      font-weight: 500;
-    }
-
-    /* Dropdown wrapper */
-    .select-wrapper {
-      position: relative;
-      display: inline-block;
-      width: 100%;
-      max-width: 300px;
-    }
-
+    #themeToggle:hover { background: var(--border-color); }
+    h3 { margin-top: 2rem; font-size: 1.4rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.3rem; }
+    label { display: block; margin: 1rem 0 0.5rem; font-weight: 500; }
+    .select-wrapper { position: relative; display: inline-block; width: 100%; max-width: 300px; }
     .select-wrapper select {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-
-      background-color: var(--input-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      padding: 0.5rem 2rem 0.5rem 0.75rem;
-      font-size: 1rem;
-      color: var(--text-color);
-      cursor: pointer;
-      outline: none;
-      box-shadow: none;
-      width: 100%;
+      -webkit-appearance: none; -moz-appearance: none; appearance: none;
+      background-color: var(--input-bg); border: 1px solid var(--border-color);
+      border-radius: 6px; padding: 0.5rem 2rem 0.5rem 0.75rem; font-size: 1rem;
+      color: var(--text-color); cursor: pointer; outline: none; box-shadow: none; width: 100%;
       transition: background-color 0.3s, color 0.3s, border-color 0.3s;
     }
-
-    .select-wrapper::after {
-      content: "▾";
-      position: absolute;
-      top: 50%;
-      right: 0.75rem;
-      transform: translateY(-50%);
-      color: var(--text-color);
-      pointer-events: none;
-    }
-
+    .select-wrapper::after { content: "▾"; position: absolute; top: 50%; right: 0.75rem; transform: translateY(-50%); color: var(--text-color); pointer-events: none; }
     input {
-      padding: 0.5rem;
-      font-size: 1rem;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      width: 100%;
-      max-width: 300px;
-      background-color: var(--input-bg);
-      color: var(--text-color);
+      padding: 0.5rem; font-size: 1rem; border: 1px solid var(--border-color);
+      border-radius: 6px; width: 100%; max-width: 300px;
+      background-color: var(--input-bg); color: var(--text-color);
       transition: background-color 0.3s, color 0.3s, border-color 0.3s;
     }
-
     button {
-      margin-top: 1.5rem;
-      padding: 0.6rem 1.2rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      background: #444;
-      color: #fff;
-      cursor: pointer;
+      margin-top: 1.5rem; padding: 0.6rem 1.2rem; font-size: 1rem;
+      border: none; border-radius: 6px; background: #444; color: #fff; cursor: pointer;
     }
-    button:hover {
-      background: #222;
-    }
-
+    button:hover { background: #222; }
     .equation {
-      margin-top: 1.5rem;
-      padding: 1rem;
-      background: var(--equation-bg);
-      border-left: 3px solid var(--border-color);
-      min-height: 2rem;
-      transition: background-color 0.3s, border-color 0.3s;
+      margin-top: 1.5rem; padding: 1rem;
+      background: var(--equation-bg); border-left: 3px solid var(--border-color);
+      min-height: 2rem; transition: background-color 0.3s, border-color 0.3s;
     }
-
-    .error {
-      color: var(--error-color);
-      font-weight: 600;
-      margin-top: 1rem;
-    }
+    .error { color: var(--error-color); font-weight: 600; margin-top: 1rem; }
   </style>
 </head>
 <body>
@@ -213,13 +124,6 @@
     const errorMsg = document.getElementById("errorMsg");
     const themeToggle = document.getElementById("themeToggle");
 
-    // Dummy placeholder "database"
-    const expressions = {
-      "A1_rational": "\\( f(x) = x \\)",
-      "P1_rational": "\\( f(x) = \\frac{1}{x} \\)",
-      "E_rational": "\\( f(x,y) = y^2 - x^3 - ax - b \\)"
-    };
-
     function isValidPartition(input) {
       if (!input) return false;
       const parts = input.split(",").map(s => s.trim());
@@ -229,7 +133,20 @@
       return sum <= 5;
     }
 
-    submitBtn.addEventListener("click", () => {
+    async function loadExpression(curve, output, partition) {
+      try {
+        const url = `data/${curve}/${output}.json`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("File not found");
+        const data = await response.json();
+        return data[partition] || null;
+      } catch (err) {
+        console.error(err);
+        return null;
+      }
+    }
+
+    submitBtn.addEventListener("click", async () => {
       errorMsg.textContent = "";
       equationBox.textContent = "Processing...";
 
@@ -249,20 +166,19 @@
         return;
       }
 
-      const key = curve + "_" + output;
-      if (expressions[key]) {
-        equationBox.innerHTML = expressions[key];
+      const expr = await loadExpression(curve, output, partition);
+      if (expr) {
+        equationBox.innerHTML = expr;
         MathJax.typesetPromise([equationBox]);
       } else {
-        equationBox.textContent = "No expression found for this combination (placeholder).";
+        equationBox.textContent = "No expression found for this partition.";
       }
     });
 
-    // Dark mode toggle
     themeToggle.addEventListener("click", () => {
       document.body.classList.toggle("dark");
-      themeToggle.textContent = 
-        document.body.classList.contains("dark") ? "☀ Light Mode" : " Dark Mode";
+      themeToggle.textContent =
+        document.body.classList.contains("dark") ? "☀️ Light Mode" : "🌙 Dark Mode";
     });
   </script>
 </body>
