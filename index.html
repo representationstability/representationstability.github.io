@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Algebraic Curves Explorer</title>
+  <title>Algebraic Curves Demo</title>
+
+  <!-- MathJax for LaTeX rendering -->
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async
           src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
   <style>
     body {
       background-color: #f7f7f7;
@@ -14,54 +17,64 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       margin: 0;
       padding: 0;
+      line-height: 1.6;
     }
-
     .container {
       max-width: 800px;
       margin: 0 auto;
       padding: 2rem;
     }
-
     header {
       text-align: center;
       margin-bottom: 2rem;
     }
-
-    h1 {
+    header h1 {
+      font-size: 2.2rem;
       margin: 0.5rem 0;
     }
-
-    .controls {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-      justify-content: center;
+    h3 {
+      margin-top: 2rem;
+      font-size: 1.4rem;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.3rem;
     }
-
-    select {
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+      font-weight: 500;
+    }
+    select, input {
       padding: 0.5rem;
       font-size: 1rem;
+      border: 1px solid #aaa;
+      border-radius: 6px;
+      width: 100%;
+      max-width: 300px;
     }
-
+    button {
+      margin-top: 1.5rem;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      background: #444;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #222;
+    }
     .equation {
       margin-top: 1.5rem;
       padding: 1rem;
       background: #eee;
       border-left: 3px solid #999;
-      min-height: 3rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      min-height: 2rem;
     }
-
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #777;
-      margin-top: 3rem;
-      padding-top: 1rem;
-      border-top: 1px solid #ddd;
+    .error {
+      color: #b00020;
+      font-weight: 600;
+      margin-top: 1rem;
     }
   </style>
 </head>
@@ -69,72 +82,93 @@
   <div class="container">
     <header>
       <h1>Algebraic Curves Explorer</h1>
-      <p>Select a curve and an expression type to view the corresponding formula.</p>
     </header>
 
-    <div class="controls">
-      <label>
-        Curve:
-        <select id="curveSelect">
-          <option value="">-- Select a curve --</option>
-          <option value="A1">Affine Line (ℝA^1)</option>
-          <option value="P1">Projective Line (ℝP^1)</option>
-          <option value="E">Elliptic Curve (E)</option>
-        </select>
-      </label>
+    <section>
+      <h3>Choose Options</h3>
 
-      <label>
-        Expression:
-        <select id="exprSelect">
-          <option value="">-- Select an expression --</option>
-          <option value="rational">Rational Function</option>
-          <option value="laurent">Laurent Series</option>
-          <option value="multiplicity">Multiplicities</option>
-        </select>
-      </label>
-    </div>
+      <label for="curveSelect">Select an algebraic curve:</label>
+      <select id="curveSelect">
+        <option value="">-- Select Curve --</option>
+        <option value="A1">Affine line \( \mathbb{A}^1 \)</option>
+        <option value="P1">Projective line \( \mathbb{P}^1 \)</option>
+        <option value="E">Elliptic curve \( E \)</option>
+      </select>
 
-    <div class="equation" id="equationBox">
-      Choose options to display an equation.
-    </div>
+      <label for="outputSelect">Select an output type:</label>
+      <select id="outputSelect">
+        <option value="">-- Select Output --</option>
+        <option value="rational">Rational function</option>
+        <option value="laurent">Laurent series</option>
+        <option value="multiplicities">Multiplicities</option>
+      </select>
 
-    <footer>
-      © 2025 Your Name. All rights reserved.
-    </footer>
+      <label for="partitionInput">Enter a partition of \( n \leq 5 \) (e.g. "3,1,1"):</label>
+      <input type="text" id="partitionInput" placeholder="e.g. 3,1,1">
+
+      <button id="submitBtn">Show Expression</button>
+
+      <div id="errorMsg" class="error"></div>
+      <div id="equationBox" class="equation">
+        Your expression will appear here.
+      </div>
+    </section>
   </div>
 
   <script>
+    const submitBtn = document.getElementById("submitBtn");
     const equationBox = document.getElementById("equationBox");
-    const curveSelect = document.getElementById("curveSelect");
-    const exprSelect = document.getElementById("exprSelect");
+    const errorMsg = document.getElementById("errorMsg");
 
-    async function loadExpressions() {
-      const response = await fetch("expressions.json");
-      return response.json();
+    // Dummy placeholder "database"
+    // Later this could be loaded from a separate file
+    const expressions = {
+      "A1_rational": "\\( f(x) = x \\)",
+      "P1_rational": "\\( f(x) = \\frac{1}{x} \\)",
+      "E_rational": "\\( f(x,y) = y^2 - x^3 - ax - b \\)"
+      // (etc. for laurent, multiplicities, partitions...)
+    };
+
+    // Check if partition is valid
+    function isValidPartition(input) {
+      if (!input) return false;
+      const parts = input.split(",").map(s => s.trim());
+      if (!parts.every(p => /^\d+$/.test(p))) return false;
+      const nums = parts.map(Number);
+      const sum = nums.reduce((a, b) => a + b, 0);
+      return sum <= 5;
     }
 
-    async function updateEquation() {
-      const curve = curveSelect.value;
-      const expr = exprSelect.value;
+    submitBtn.addEventListener("click", () => {
+      errorMsg.textContent = "";
+      equationBox.textContent = "Processing...";
 
-      if (!curve || !expr) {
-        equationBox.innerHTML = "Choose options to display an equation.";
+      const curve = document.getElementById("curveSelect").value;
+      const output = document.getElementById("outputSelect").value;
+      const partition = document.getElementById("partitionInput").value.trim();
+
+      if (!curve || !output) {
+        errorMsg.textContent = "Please select both a curve and an output type.";
+        equationBox.textContent = "";
         return;
       }
 
-      const data = await loadExpressions();
-      const latex = data[curve]?.[expr];
-
-      if (latex) {
-        equationBox.innerHTML = latex;
-        MathJax.typesetPromise([equationBox]);
-      } else {
-        equationBox.innerHTML = "No expression available for this selection.";
+      if (!isValidPartition(partition)) {
+        errorMsg.textContent = "Invalid partition. Enter a partition of n with n ≤ 5 (e.g. '3,1,1').";
+        equationBox.textContent = "";
+        return;
       }
-    }
 
-    curveSelect.addEventListener("change", updateEquation);
-    exprSelect.addEventListener("change", updateEquation);
+      // Construct key to look up expression
+      const key = curve + "_" + output;
+
+      if (expressions[key]) {
+        equationBox.innerHTML = expressions[key];
+        MathJax.typesetPromise([equationBox]); // render LaTeX
+      } else {
+        equationBox.textContent = "No expression found for this combination (placeholder).";
+      }
+    });
   </script>
 </body>
 </html>
