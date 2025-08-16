@@ -3,62 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Your Paper Title</title>
+  <title>Algebraic Curves Explorer</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
-    /* Base styling */
     body {
-      background-color: #f7f7f7; /* soft gray off-white */
-      color: #333333; /* dark gray */
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f7f7f7;
+      color: #333;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       margin: 0;
       padding: 0;
-      line-height: 1.6;
     }
 
-    /* Container for centered content */
     .container {
       max-width: 800px;
       margin: 0 auto;
       padding: 2rem;
     }
 
-    /* Header styles */
     header {
       text-align: center;
       margin-bottom: 2rem;
     }
 
-    header h1 {
-      font-size: 2.2rem;
+    h1 {
       margin: 0.5rem 0;
     }
 
-    header h2 {
-      font-size: 1.2rem;
-      font-weight: 400;
-      color: #666;
-      margin: 0;
+    .controls {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+      justify-content: center;
     }
 
-    /* Section headings */
-    h3 {
-      margin-top: 2rem;
-      font-size: 1.4rem;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 0.3rem;
+    select {
+      padding: 0.5rem;
+      font-size: 1rem;
     }
 
-    /* Equation placeholder */
     .equation {
+      margin-top: 1.5rem;
+      padding: 1rem;
       background: #eee;
       border-left: 3px solid #999;
-      padding: 1rem;
-      margin: 1.5rem 0;
-      font-family: "Courier New", Courier, monospace;
-      color: #222;
+      min-height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* Footer */
     footer {
       text-align: center;
       font-size: 0.9rem;
@@ -72,38 +68,73 @@
 <body>
   <div class="container">
     <header>
-      <h1>Your Paper Title</h1>
-      <h2>Author Name · Institution</h2>
+      <h1>Algebraic Curves Explorer</h1>
+      <p>Select a curve and an expression type to view the corresponding formula.</p>
     </header>
 
-    <section>
-      <h3>Abstract</h3>
-      <p>
-        Write a brief summary of your paper here. This template provides a simple,
-        elegant way to share your work.
-      </p>
-    </section>
+    <div class="controls">
+      <label>
+        Curve:
+        <select id="curveSelect">
+          <option value="">-- Select a curve --</option>
+          <option value="A1">Affine Line (ℝA^1)</option>
+          <option value="P1">Projective Line (ℝP^1)</option>
+          <option value="E">Elliptic Curve (E)</option>
+        </select>
+      </label>
 
-    <section>
-      <h3>Introduction</h3>
-      <p>
-        Start writing your paper here. You can include placeholders for equations.
-      </p>
-      <div class="equation">
-        Equation Placeholder (LaTeX will go here later)
-      </div>
-    </section>
+      <label>
+        Expression:
+        <select id="exprSelect">
+          <option value="">-- Select an expression --</option>
+          <option value="rational">Rational Function</option>
+          <option value="laurent">Laurent Series</option>
+          <option value="multiplicity">Multiplicities</option>
+        </select>
+      </label>
+    </div>
 
-    <section>
-      <h3>Conclusion</h3>
-      <p>
-        Wrap up your findings here.
-      </p>
-    </section>
+    <div class="equation" id="equationBox">
+      Choose options to display an equation.
+    </div>
 
     <footer>
       © 2025 Your Name. All rights reserved.
     </footer>
   </div>
+
+  <script>
+    const equationBox = document.getElementById("equationBox");
+    const curveSelect = document.getElementById("curveSelect");
+    const exprSelect = document.getElementById("exprSelect");
+
+    async function loadExpressions() {
+      const response = await fetch("expressions.json");
+      return response.json();
+    }
+
+    async function updateEquation() {
+      const curve = curveSelect.value;
+      const expr = exprSelect.value;
+
+      if (!curve || !expr) {
+        equationBox.innerHTML = "Choose options to display an equation.";
+        return;
+      }
+
+      const data = await loadExpressions();
+      const latex = data[curve]?.[expr];
+
+      if (latex) {
+        equationBox.innerHTML = latex;
+        MathJax.typesetPromise([equationBox]);
+      } else {
+        equationBox.innerHTML = "No expression available for this selection.";
+      }
+    }
+
+    curveSelect.addEventListener("change", updateEquation);
+    exprSelect.addEventListener("change", updateEquation);
+  </script>
 </body>
 </html>
