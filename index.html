@@ -100,6 +100,10 @@
           <option value="">-- Select Variety --</option>
           <option value="A1">Affine line \( \mathbb{A}^1 \)</option>
           <option value="P1">Projective line \( \mathbb{P}^1 \)</option>
+          <option value="P2">Projective 2-space \( \mathbb{P}^2 \)</option>
+          <option value="P3">Projective 3-space \( \mathbb{P}^3 \)</option>
+          <option value="P4">Projective 4-space \( \mathbb{P}^4 \)</option>
+          <option value="P5">Projective 5-space \( \mathbb{P}^5 \)</option>
           <option value="E">Elliptic curve \( E \)</option>
         </select>
       </div>
@@ -179,7 +183,7 @@
         equationBox.innerHTML = expr;
         MathJax.typesetPromise([equationBox]);
       } else {
-        equationBox.textContent = "No expression found for this partition.";
+        equationBox.textContent = "Information has not yet been added for this representation.";
       }
     });
 
