@@ -85,6 +85,96 @@
   </style>
 </head>
 <body>
+
+  <!-- ============================================
+     Drop-Down Explanation Section
+     ============================================ -->
+<style>
+  .dropdown {
+    margin-top: 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--input-bg);
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+
+  .dropdown-header {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 600;
+    color: var(--text-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .dropdown-header:hover {
+    background: var(--border-color);
+  }
+
+  .dropdown-arrow {
+    transition: transform 0.3s ease;
+  }
+
+  .dropdown-content {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 1rem;
+    background: var(--bg-color);
+    color: var(--text-color);
+    transition: max-height 0.5s ease, padding 0.3s ease;
+  }
+
+  .dropdown.open .dropdown-content {
+    padding: 1rem;
+  }
+
+  .dropdown.open .dropdown-arrow {
+    transform: rotate(90deg);
+  }
+</style>
+
+<div class="dropdown" id="explanationBox">
+  <div class="dropdown-header">
+    <span>Additional Explanation</span>
+    <span class="dropdown-arrow">▸</span>
+  </div>
+  <div class="dropdown-content">
+    <p>
+      This section can contain any additional comments, computations,
+      or mathematical explanation you want to provide. It will smoothly
+      expand and collapse when clicked, and the styling adapts to both
+      light and dark modes.
+    </p>
+    <p>
+      You can freely include MathJax expressions such as
+      \( H^i(X, \mathbb{Q}_\ell) \), \( \mathcal{F} \),
+      or representation-theoretic notation.  
+      MathJax will automatically typeset them when visible.
+    </p>
+  </div>
+</div>
+
+<script>
+  const dd = document.getElementById("explanationBox");
+  const header = dd.querySelector(".dropdown-header");
+  const content = dd.querySelector(".dropdown-content");
+
+  header.addEventListener("click", () => {
+    dd.classList.toggle("open");
+
+    if (dd.classList.contains("open")) {
+      // expand smoothly
+      content.style.maxHeight = content.scrollHeight + "px";
+    } else {
+      // collapse smoothly
+      content.style.maxHeight = "0";
+    }
+  });
+</script>
+
+  
   <div class="container">
     <header>
       <h1>Representation Stability for Varieties</h1>
