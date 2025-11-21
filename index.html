@@ -92,13 +92,11 @@
       <button id="themeToggle">Dark</button>
     </header>
 
-  <!-- ============================================
-     Drop-Down Explanation Section (Margin-Matched)
-     ============================================ -->
-
+<!-- possibly temporary dropdown section -->
+    
 <style>
   .dropdown {
-    margin: 2rem 0; /* match spacing of <h3> and section blocks */
+    margin: 2rem 0; 
     border: 1px solid var(--border-color);
     border-radius: 6px;
     background: var(--input-bg);
@@ -106,7 +104,7 @@
   }
 
   .dropdown-header {
-    padding: 0.9rem 1rem; /* matches your form element padding */
+    padding: 0.9rem 1rem; 
     cursor: pointer;
     user-select: none;
     font-weight: 600;
@@ -127,14 +125,14 @@
   .dropdown-content {
     max-height: 0;
     overflow: hidden;
-    padding: 0 1rem;    /* side padding only when closed */
+    padding: 0 1rem;    
     background: var(--bg-color);
     color: var(--text-color);
     transition: max-height 0.5s ease, padding 0.3s ease;
   }
 
   .dropdown.open .dropdown-content {
-    padding: 1rem; /* matches spacing of your .equation and paragraphs */
+    padding: 1rem;
   }
 
   .dropdown.open .dropdown-arrow {
