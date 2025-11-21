@@ -85,13 +85,20 @@
   </style>
 </head>
 <body>
+  
+  <div class="container">
+    <header>
+      <h1>Representation Stability for Varieties</h1>
+      <button id="themeToggle">Dark</button>
+    </header>
 
   <!-- ============================================
-     Drop-Down Explanation Section
+     Drop-Down Explanation Section (Margin-Matched)
      ============================================ -->
+
 <style>
   .dropdown {
-    margin-top: 2rem;
+    margin: 2rem 0; /* match spacing of <h3> and section blocks */
     border: 1px solid var(--border-color);
     border-radius: 6px;
     background: var(--input-bg);
@@ -99,7 +106,7 @@
   }
 
   .dropdown-header {
-    padding: 0.75rem 1rem;
+    padding: 0.9rem 1rem; /* matches your form element padding */
     cursor: pointer;
     user-select: none;
     font-weight: 600;
@@ -120,14 +127,14 @@
   .dropdown-content {
     max-height: 0;
     overflow: hidden;
-    padding: 0 1rem;
+    padding: 0 1rem;    /* side padding only when closed */
     background: var(--bg-color);
     color: var(--text-color);
     transition: max-height 0.5s ease, padding 0.3s ease;
   }
 
   .dropdown.open .dropdown-content {
-    padding: 1rem;
+    padding: 1rem; /* matches spacing of your .equation and paragraphs */
   }
 
   .dropdown.open .dropdown-arrow {
@@ -140,18 +147,17 @@
     <span>Additional Explanation</span>
     <span class="dropdown-arrow">▸</span>
   </div>
+
   <div class="dropdown-content">
     <p>
-      This section can contain any additional comments, computations,
-      or mathematical explanation you want to provide. It will smoothly
-      expand and collapse when clicked, and the styling adapts to both
-      light and dark modes.
+      This expandable section matches the horizontal and vertical margins
+      of the rest of your page and integrates cleanly with the dark mode
+      and light mode styles.
     </p>
     <p>
-      You can freely include MathJax expressions such as
-      \( H^i(X, \mathbb{Q}_\ell) \), \( \mathcal{F} \),
-      or representation-theoretic notation.  
-      MathJax will automatically typeset them when visible.
+      You may include any amount of explanatory text or MathJax such as
+      \( H^i(X, \mathbb{Q}_\ell) \), \( \mathrm{Rep}(S_n) \), or
+      \( \chi(X) \). The animation remains smooth regardless of length.
     </p>
   </div>
 </div>
@@ -165,22 +171,14 @@
     dd.classList.toggle("open");
 
     if (dd.classList.contains("open")) {
-      // expand smoothly
       content.style.maxHeight = content.scrollHeight + "px";
     } else {
-      // collapse smoothly
       content.style.maxHeight = "0";
     }
   });
 </script>
 
-  
-  <div class="container">
-    <header>
-      <h1>Representation Stability for Varieties</h1>
-      <button id="themeToggle">Dark</button>
-    </header>
-
+    
     <section>
       <h3>Choose Options</h3>
 
